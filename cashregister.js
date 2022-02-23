@@ -1,5 +1,13 @@
 function checkCashRegister(price, cash, cid) {
+  let changeDue = cash - price;
+  let changeInRegister = cid.reduce(
+    (totalRegister, item) => totalRegister + item[1],
+    0
+  );
   let change = {};
+  if (changeDue > changeInRegister)
+    return { status: "INSUFFICIENT_FUNDS", change: [] };
+  if (changeDue === changeInRegister) return { status: "CLOSED", change: cid };
   return change;
 }
 
